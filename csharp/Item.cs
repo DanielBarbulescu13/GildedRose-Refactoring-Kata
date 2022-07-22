@@ -1,14 +1,14 @@
 ﻿namespace csharp
 {
-    public class Item
+    public interface Item
     {
-        public string Name { get; set; }
-        public int SellIn { get; set; }
-        public int Quality { get; set; }
-
-        public override string ToString()
-        {
-            return this.Name + ", " + this.SellIn + ", " + this.Quality;
-        }  
+        string getName();
+        int getSellin();
+        int getQuality();
+        void setName(string name);
+        void setQuality(int quality);
+        void setSellin(int sellIn);
+        string ToString();
+        void UpdateQuality();
     }
 }

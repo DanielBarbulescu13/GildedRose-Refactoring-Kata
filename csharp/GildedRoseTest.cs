@@ -5,6 +5,7 @@ using System.Text;
 using ApprovalTests;
 using ApprovalTests.Reporters;
 using System.Collections.Generic;
+using NUnit.Framework.Internal;
 
 namespace csharp
 {
@@ -14,10 +15,10 @@ namespace csharp
         [Test]
         public void foo()
         {
-            IList<Item> Items = new List<Item> { new Item { Name = "foo", SellIn = 0, Quality = 0 } };
+            IList<Item> Items = new List<Item> { new ItemNormal("foo", 0, 0) };
             GildedRose app = new GildedRose(Items);
             app.UpdateQuality();
-            Assert.AreEqual("foo", Items[0].Name);
+            Assert.AreEqual("foo", Items[0].getName());
         }
 
         [Test]
@@ -25,15 +26,14 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20 }
+                new ItemNormal("+5 Dexterity Vest", 10, 20)
             };
-
             var app = new GildedRose(Items);
 
             for (var i = 0; i < 3; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(17, Items[0].Quality);
+            Assert.AreEqual(17, Items[0].getQuality());
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "+5 Dexterity Vest", SellIn = 0, Quality = 20 }
+                new ItemNormal("+5 Dexterity Vest", 0, 20)
             };
 
             var app = new GildedRose(Items);
@@ -49,7 +49,7 @@ namespace csharp
             for (var i = 0; i < 3; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(15, Items[0].Quality);
+            Assert.AreEqual(15, Items[0].getQuality());
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "+5 Dexterity Vest", SellIn = 0, Quality = 3 }
+                new ItemNormal("+5 Dexterity Vest", 0, 3)
             };
 
             var app = new GildedRose(Items);
@@ -65,7 +65,7 @@ namespace csharp
             for (var i = 0; i < 3; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(0, Items[0].Quality);
+            Assert.AreEqual(0, Items[0].getQuality());
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "Aged Brie", SellIn = 7, Quality = 3 }
+                new ItemAgedBrie("Aged Brie", 7, 3)
             };
 
             var app = new GildedRose(Items);
@@ -81,7 +81,7 @@ namespace csharp
             for (var i = 0; i < 5; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(8, Items[0].Quality);
+            Assert.AreEqual(8, Items[0].getQuality());
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "Aged Brie", SellIn = 7, Quality = 48 }
+                new ItemAgedBrie("Aged Brie", 7, 48)
             };
 
             var app = new GildedRose(Items);
@@ -97,7 +97,7 @@ namespace csharp
             for (var i = 0; i < 5; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(50, Items[0].Quality);
+            Assert.AreEqual(50, Items[0].getQuality());
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 0, Quality = 80 }
+                new ItemSulfuras("Sulfuras, Hand of Ragnaros", 0, 80)
             };
 
             var app = new GildedRose(Items);
@@ -113,7 +113,7 @@ namespace csharp
             for (var i = 0; i < 5; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(80, Items[0].Quality);
+            Assert.AreEqual(80, Items[0].getQuality());
         }
 
         [Test]
@@ -121,7 +121,7 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 15, Quality = 40 }
+                new ItemBackstage("Backstage passes to a TAFKAL80ETC concert", 15, 40)
             };
 
             var app = new GildedRose(Items);
@@ -129,7 +129,7 @@ namespace csharp
             for (var i = 0; i < 13; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(50, Items[0].Quality);
+            Assert.AreEqual(50, Items[0].getQuality());
         }
 
         [Test]
@@ -137,7 +137,7 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 15, Quality = 40 }
+                new ItemBackstage("Backstage passes to a TAFKAL80ETC concert", 15, 40)
             };
 
             var app = new GildedRose(Items);
@@ -145,7 +145,7 @@ namespace csharp
             for (var i = 0; i < 2; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(42, Items[0].Quality);
+            Assert.AreEqual(42, Items[0].getQuality());
         }
 
         [Test]
@@ -153,7 +153,7 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 12, Quality = 40 }
+                new ItemBackstage("Backstage passes to a TAFKAL80ETC concert", 12, 40)
             };
 
             var app = new GildedRose(Items);
@@ -161,7 +161,7 @@ namespace csharp
             for (var i = 0; i < 4; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(46, Items[0].Quality);
+            Assert.AreEqual(46, Items[0].getQuality());
         }
 
         [Test]
@@ -169,7 +169,7 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 12, Quality = 20 }
+                new ItemBackstage("Backstage passes to a TAFKAL80ETC concert", 12, 20)
             };
 
             var app = new GildedRose(Items);
@@ -177,7 +177,7 @@ namespace csharp
             for (var i = 0; i < 9; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(38, Items[0].Quality);
+            Assert.AreEqual(38, Items[0].getQuality());
         }
 
         [Test]
@@ -185,7 +185,7 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 12, Quality = 20 }
+                new ItemBackstage("Backstage passes to a TAFKAL80ETC concert", 12, 20)
             };
 
             var app = new GildedRose(Items);
@@ -193,7 +193,7 @@ namespace csharp
             for (var i = 0; i < 18; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(0, Items[0].Quality);
+            Assert.AreEqual(0, Items[0].getQuality());
         }
 
         [Test]
@@ -201,7 +201,7 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "Conjured Mana Cake", SellIn = 12, Quality = 20 }
+                new ItemConjured("Conjured Mana Cake", 12, 20 )
             };
 
             var app = new GildedRose(Items);
@@ -209,7 +209,7 @@ namespace csharp
             for (var i = 0; i < 4; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(12, Items[0].Quality);
+            Assert.AreEqual(12, Items[0].getQuality());
         }
 
         [Test]
@@ -217,7 +217,7 @@ namespace csharp
         {
             IList<Item> Items = new List<Item>
             {
-                new Item { Name = "Conjured Mana Cake", SellIn = 2, Quality = 20 }
+                new ItemConjured("Conjured Mana Cake", 2, 20 )
             };
 
             var app = new GildedRose(Items);
@@ -225,7 +225,7 @@ namespace csharp
             for (var i = 0; i < 5; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(6, Items[0].Quality);
+            Assert.AreEqual(6, Items[0].getQuality());
         }
     }
 }
