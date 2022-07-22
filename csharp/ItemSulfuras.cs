@@ -12,9 +12,9 @@ namespace csharp
 
         public override void UpdateQuality()
         {
-            if (this.getQuality() != 80)
+            if (this.Quality != 80)
             {
-                this.setQuality(80);
+                this.Quality = 80;
             }
         }
     }

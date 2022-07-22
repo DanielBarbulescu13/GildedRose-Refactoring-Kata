@@ -15,16 +15,16 @@ namespace csharp
         [Test]
         public void foo()
         {
-            IList<Item> Items = new List<Item> { new ItemNormal("foo", 0, 0) };
+            IList<AbstractItem> Items = new List<AbstractItem> { new ItemNormal("foo", 0, 0) };
             GildedRose app = new GildedRose(Items);
             app.UpdateQuality();
-            Assert.AreEqual("foo", Items[0].getName());
+            Assert.AreEqual("foo", Items[0].Name);
         }
 
         [Test]
         public void QualityDegradesForNormalItems()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemNormal("+5 Dexterity Vest", 10, 20)
             };
@@ -33,13 +33,13 @@ namespace csharp
             for (var i = 0; i < 3; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(17, Items[0].getQuality());
+            Assert.AreEqual(17, Items[0].Quality);
         }
 
         [Test]
         public void QualityDegradesDoubleAfterSellByDatePassedForNormalItems()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemNormal("+5 Dexterity Vest", 0, 20)
             };
@@ -49,13 +49,13 @@ namespace csharp
             for (var i = 0; i < 3; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(15, Items[0].getQuality());
+            Assert.AreEqual(15, Items[0].Quality);
         }
 
         [Test]
         public void QualityNeverNegativeForNormalItems()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemNormal("+5 Dexterity Vest", 0, 3)
             };
@@ -65,13 +65,13 @@ namespace csharp
             for (var i = 0; i < 3; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(0, Items[0].getQuality());
+            Assert.AreEqual(0, Items[0].Quality);
         }
 
         [Test]
         public void QualityIncreasesForAgedBrie()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemAgedBrie("Aged Brie", 7, 3)
             };
@@ -81,13 +81,13 @@ namespace csharp
             for (var i = 0; i < 5; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(8, Items[0].getQuality());
+            Assert.AreEqual(8, Items[0].Quality);
         }
 
         [Test]
         public void QualityDoesNotPass50ForAgedBrie()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemAgedBrie("Aged Brie", 7, 48)
             };
@@ -97,13 +97,13 @@ namespace csharp
             for (var i = 0; i < 5; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(50, Items[0].getQuality());
+            Assert.AreEqual(50, Items[0].Quality);
         }
 
         [Test]
         public void QualityDoesNotChangeForSulfuras()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemSulfuras("Sulfuras, Hand of Ragnaros", 0, 80)
             };
@@ -113,13 +113,13 @@ namespace csharp
             for (var i = 0; i < 5; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(80, Items[0].getQuality());
+            Assert.AreEqual(80, Items[0].Quality);
         }
 
         [Test]
         public void QualityDoesNotPass50ForBackstagePasses()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemBackstage("Backstage passes to a TAFKAL80ETC concert", 15, 40)
             };
@@ -129,13 +129,13 @@ namespace csharp
             for (var i = 0; i < 13; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(50, Items[0].getQuality());
+            Assert.AreEqual(50, Items[0].Quality);
         }
 
         [Test]
         public void QualityIncreasesNormalForBackstagePasses()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemBackstage("Backstage passes to a TAFKAL80ETC concert", 15, 40)
             };
@@ -145,13 +145,13 @@ namespace csharp
             for (var i = 0; i < 2; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(42, Items[0].getQuality());
+            Assert.AreEqual(42, Items[0].Quality);
         }
 
         [Test]
         public void QualityIncreasesBy2With10DaysOrLessRemainingForBackstagePasses()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemBackstage("Backstage passes to a TAFKAL80ETC concert", 12, 40)
             };
@@ -161,13 +161,13 @@ namespace csharp
             for (var i = 0; i < 4; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(46, Items[0].getQuality());
+            Assert.AreEqual(46, Items[0].Quality);
         }
 
         [Test]
         public void QualityIncreaseBy3With10DaysOrLessRemainingForBackstagePasses()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemBackstage("Backstage passes to a TAFKAL80ETC concert", 12, 20)
             };
@@ -177,13 +177,13 @@ namespace csharp
             for (var i = 0; i < 9; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(38, Items[0].getQuality());
+            Assert.AreEqual(38, Items[0].Quality);
         }
 
         [Test]
         public void QualityDropsTo0AfterConcertForBackstagePasses()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemBackstage("Backstage passes to a TAFKAL80ETC concert", 12, 20)
             };
@@ -193,13 +193,13 @@ namespace csharp
             for (var i = 0; i < 18; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(0, Items[0].getQuality());
+            Assert.AreEqual(0, Items[0].Quality);
         }
 
         [Test]
         public void QualityDegradesNormalForConjured()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemConjured("Conjured Mana Cake", 12, 20 )
             };
@@ -209,13 +209,13 @@ namespace csharp
             for (var i = 0; i < 4; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(12, Items[0].getQuality());
+            Assert.AreEqual(12, Items[0].Quality);
         }
 
         [Test]
         public void QualityDegradesDoubleAfterSellByDatePassedForConjured()
         {
-            IList<Item> Items = new List<Item>
+            IList<AbstractItem> Items = new List<AbstractItem>
             {
                 new ItemConjured("Conjured Mana Cake", 2, 20 )
             };
@@ -225,7 +225,7 @@ namespace csharp
             for (var i = 0; i < 5; i++)
                 app.UpdateQuality();
 
-            Assert.AreEqual(6, Items[0].getQuality());
+            Assert.AreEqual(6, Items[0].Quality);
         }
     }
 }

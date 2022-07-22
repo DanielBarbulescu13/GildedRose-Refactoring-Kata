@@ -12,17 +12,18 @@ namespace csharp
 
         public override void UpdateQuality()
         {
-            if (this.getSellin() < 0)
+            if (this.SellIn < 0)
             {
-                this.setQuality(this.getQuality() - 4);
+                this.Quality -= 4;
             }
             else
             {
-                this.setQuality(this.getQuality() - 2);
+                this.Quality -= 2;
             }
-            if (this.getQuality() < 0)
-                this.setQuality(0);
-            this.setSellin(this.getSellin() - 1);
+
+            if (this.Quality < 0)
+                this.Quality = 0;
+            this.SellIn -= 1;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace csharp
         {
             Console.WriteLine("OMGHAI!");
 
-            IList<Item> Items = new List<Item>{
+            IList<AbstractItem> Items = new List<AbstractItem>{
                 new ItemNormal("+5 Dexterity Vest", 10, 20),
                 new ItemAgedBrie("Aged Brie",2,0),
                 new ItemNormal("Elixir of the Mongoose",5,7),
@@ -31,7 +31,8 @@ namespace csharp
                 Console.WriteLine("name, sellIn, quality");
                 for (var j = 0; j < Items.Count; j++)
                 {
-                    System.Console.WriteLine(Items[j]);
+                    System.Console.WriteLine(Items[j].Name + ", " + Items[j].SellIn + ", " +
+                                             Items[j].Quality);
                 }
                 Console.WriteLine("");
                 app.UpdateQuality();
